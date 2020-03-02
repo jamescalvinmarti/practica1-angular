@@ -1,0 +1,25 @@
+#title {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+}
+
+#receipts,
+#new-receipts {
+  padding: 30px;
+  margin: 20px;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+}
+
+#receipts {
+  height: 100%;
+  width: 65%;
+}
+
+#new-receipts {
+  height: 100%;
+  width: 35%;
+}

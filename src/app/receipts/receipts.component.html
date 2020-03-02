@@ -1,0 +1,14 @@
+<h2>Receptes</h2>
+
+<div *ngFor="let receipt of receipts; index as receiptId">
+
+  <h3>
+    <a [title]="receipt.name" [routerLink]="['/receipts', receiptId]">
+      {{ receipt.name }}
+    </a>
+  </h3>
+
+  <p *ngIf="receipt.receipt">
+    Recepta: {{ receipt.receipt }}
+  </p>
+</div>

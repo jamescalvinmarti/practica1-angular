@@ -1,17 +1,33 @@
-export const receipts = [
+export class Receipt {
+    id: number;
+    name: string;
+    description: string;
+    ingredients: string;
+    details: boolean;
+    edit_form: boolean;
+}
+
+export class Comment {
+    id: number;
+    comment: string;
+    stars: number;
+}
+
+export const RECEIPTS: Receipt[] = [
     {
-        name: 'vedella amb bolets',
-        receipt: 'descripcio',
-        ingredients: 'ingredients'
+        id: 1,
+        name: "Vedella amb bolets",
+        description: "Remenar-ho tot bé.",
+        ingredients: "Vedella, bolets, ceba, tomàquet",
+        details: true,
+        edit_form: false
     },
-    {
-        name: 'espaguetis a la carbonara',
-        receipt: 'descripcio',
-        ingredients: 'ingredients'
-    },
-    {
-        name: 'hamburguesa',
-        receipt: 'descripcio',
-        ingredients: 'ingredients'
-    }
 ];
+
+export const COMMENTS: Comment[] = [
+    {
+        id: 1,
+        comment: "M'encanta aquesta recepta!",
+        stars: 5
+    }
+];                                    

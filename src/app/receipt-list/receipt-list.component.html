@@ -1,0 +1,165 @@
+<h2>Receptes</h2>
+
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Busca una recepta" [(ngModel)]="searchTerm">
+</div>
+
+<div class="form-group">
+  <select name="order" class="form-control" [(ngModel)]="orderTerm">
+    <option value="1">Ordenar per nom ascendent</option>
+    <option value="2">Ordenar per nom descendent</option>
+  </select>
+</div>
+
+<hr>
+
+<div *ngFor="let receipt of receipt_list | receiptFilter:searchTerm | orderFilter:orderTerm;">
+  <div class="form-group">
+    <button class="btn" (click)="showDetails(receipt)">
+      Detalls
+    </button>
+    <button class="btn" (click)="showComments(receipt)">
+      Comentaris
+    </button>
+  </div>
+
+  <h3>{{ receipt.name }}</h3>
+
+  <div *ngIf="receipt.details">
+    <h5><b>Descripció</b></h5>
+    <p>{{ receipt.description }}</p>
+
+    <h5><b>Ingredients</b></h5>
+    <p>{{ receipt.ingredients }}</p>
+
+    <div class="form-group">
+      <button class="btn btn-info mr-2" (click)="editReceipt(receipt)">Editar</button>
+      <button class="btn btn-danger" (click)="deleteReceipt(receipt)">Eliminar</button>
+    </div>
+  </div>
+
+  <div *ngIf="!receipt.details">
+
+    <div *ngIf="comments_list">
+      <h5><b>Comentaris</b></h5>
+    </div>
+
+    <div *ngFor="let comment of comments_list;">
+      <div *ngIf="comment.id == receipt.id" class="comments">
+        <p>Valoració: {{ comment.stars }}</p>
+        <p><b>{{ comment.comment }}</b></p>
+      </div>
+    </div>
+
+    <hr>
+
+    <form>
+
+      <!-- ID -->
+
+      <div class="form-group">
+        <select name="id" class="form-control" [(ngModel)]="comment.id" #id="ngModel">
+          <option value="{{ receipt.id }}" selected>{{ receipt.id }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="id.invalid && (id.dirty || id.touched)" class="alert alert-danger">
+        <div *ngIf="id.errors.required">
+          L'id es obligatori.
+        </div>
+      </div>
+
+      <!-- VALORACIÓ -->
+
+      <div class="form-group">
+        <label>Valora la recepta:</label>
+        <select class="form-control" name="stars" [(ngModel)]="comment.stars" #stars="ngModel" required>
+          <option value="1" selected>1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+      <div *ngIf="stars.invalid && (stars.dirty || stars.touched)" class="alert alert-danger">
+        <div *ngIf="stars.errors.required">
+          La valoració es obligatoria.
+        </div>
+      </div>
+
+      <!-- COMENTARI -->
+
+      <div class="form-group">
+        <label>Escriu un comentari:</label>
+        <textarea class="form-control" name="comment" [(ngModel)]="comment.comment" #review="ngModel"
+          required></textarea>
+      </div>
+
+      <div *ngIf="review.invalid && (review.dirty || review.touched)" class="alert alert-danger">
+        <div *ngIf="review.errors.required">
+          Comentari es obligatori.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" (click)="createComment()"
+        [disabled]="review.invalid || stars.invalid || id.invalid">Enviar</button>
+    </form>
+
+  </div>
+
+  <div class="edit-form" *ngIf="receipt.edit_form">
+    <h4>Editar recepta</h4>
+
+    <div class="alert alert-warning" role="alert">
+      La informació s'actualitza automàticament
+    </div>
+
+    <form>
+      <!-- NOM -->
+
+      <div class="form-group">
+        <label>Nom de la recepta</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="receipt.name" #name="ngModel" required>
+      </div>
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          El nom es obligatori.
+        </div>
+      </div>
+
+      <!-- DESCRIPCIÓ -->
+
+      <div class="form-group">
+        <label>Descripció de la recepta</label>
+        <textarea class="form-control" name="description" [(ngModel)]="receipt.description" #description="ngModel"
+          required></textarea>
+      </div>
+
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        <div *ngIf="description.errors.required">
+          La descripció es obligatoria.
+        </div>
+      </div>
+
+      <!-- INGREDIENTS -->
+
+      <div class="form-group">
+        <label>Ingredients de la recepta</label>
+        <textarea class="form-control" name="ingredients" [(ngModel)]="receipt.ingredients" #ingredients="ngModel"
+          required></textarea>
+      </div>
+
+      <div *ngIf="ingredients.invalid && (ingredients.dirty || ingredients.touched)" class="alert alert-danger">
+        <div *ngIf="ingredients.errors.required">
+          Ingredients es obligatori.
+        </div>
+      </div>
+
+      <button class="btn btn-info" (click)="cancelEdit(receipt)">Tancar</button>
+    </form>
+  </div>
+
+  <hr>
+</div>

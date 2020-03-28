@@ -1,0 +1,50 @@
+<h2>Afegir recepta</h2>
+
+<form>
+
+  <!-- NOM -->
+
+  <div class="form-group">
+    <label>Nom de la recepta</label>
+    <input type="text" class="form-control" name="name" [(ngModel)]="receipt.name" #name="ngModel" required>
+  </div>
+
+  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+    <div *ngIf="name.errors.required">
+      El nom es obligatori.
+    </div>
+  </div>
+
+  <!-- DESCRIPCIÓ -->
+
+  <div class="form-group">
+    <label>Descripció de la recepta</label>
+    <textarea class="form-control" name="description" [(ngModel)]="receipt.description" #description="ngModel"
+      required></textarea>
+  </div>
+
+  <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+    <div *ngIf="description.errors.required">
+      La descripció es obligatoria.
+    </div>
+  </div>
+
+  <!-- INGREDIENTS -->
+
+  <div class="form-group">
+    <label>Ingredients de la recepta</label>
+    <textarea class="form-control" name="ingredients" [(ngModel)]="receipt.ingredients" #ingredients="ngModel"
+      required></textarea>
+  </div>
+
+  <div *ngIf="ingredients.invalid && (ingredients.dirty || ingredients.touched)" class="alert alert-danger">
+    <div *ngIf="ingredients.errors.required">
+      Ingredients es obligatori.
+    </div>
+  </div>
+
+  <!-- botó desactivat si hi han errors -->
+  <button type="submit" class="btn btn-success" (click)="createReceipt()"
+    [disabled]="name.invalid || description.invalid || ingredients.invalid">Crear recepta</button>
+
+</form>

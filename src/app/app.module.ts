@@ -3,24 +3,26 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NewReceiptsComponent } from './new-receipts/new-receipts.component';
 import { RouterModule } from '@angular/router';
-import { ReceiptsComponent } from './receipts/receipts.component';
-import { ReceiptDetailsComponent } from './receipt-details/receipt-details.component';
+import { ReceiptFormComponent } from './receipt-form/receipt-form.component';
+import { ReceiptListComponent } from './receipt-list/receipt-list.component';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { ReceiptFilterPipe } from './receipt-filter.pipe';
+import { OrderFilterPipe } from './order-filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReceiptsComponent,
-    NewReceiptsComponent,
-    ReceiptDetailsComponent,
+    ReceiptFormComponent,
+    ReceiptListComponent,
+    ReceiptFilterPipe,
+    OrderFilterPipe
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([
-      { path: '', component: ReceiptsComponent },
-      { path: 'receipts/:receiptId', component: ReceiptDetailsComponent },
-    ])
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
